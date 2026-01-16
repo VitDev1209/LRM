@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{Templates/MainLayout :: layout(~{::title}, ~{::section}, '/')}">
+<head>
+    <title>Dashboard Home</title>
+</head>
+<body>
+
+    <section>
+        <h2>Welcome User</h2>
+        <p>This content is injected into the MainLayout.</p>
+        
+        <button type="button">My Button</button>
+    </section>
+
+</body>
+</html>
