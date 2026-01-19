@@ -47,6 +47,7 @@ public class LeaveTypeController extends BaseController {
 			return "LeaveType/addLeaveType";
 		}
 		try {
+			Thread.sleep(1500);
 			leaveTypeService.insertLeaveType(leaveType);
 			return "redirect:/leaveType/list?status=success";
 		} catch (Exception e) {
