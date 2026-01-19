@@ -64,9 +64,21 @@ public class LeaveTypeController extends BaseController {
 	}
 
 	@PostMapping("/update")
-	public String update(@Valid @ModelAttribute LeaveType leaveType) {
-		leaveTypeService.updateLeaveType(leaveType);
+	public String update(@Valid @ModelAttribute LeaveType leaveType , BindingResult bindingResult, RedirectAttributes ra,
+			Model model) {
+				if (bindingResult.hasErrors()) {
+			String errorMessage = bindingResult.getFieldError().getDefaultMessage();
+			sendWarning(model, errorMessage);
+			return "LeaveType/addLeaveType";
+		}
+		try {
+			Thread.sleep(1500);
+			leaveTypeService.updateLeaveType(leaveType);
 		return "redirect:/leaveType/list?status=success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "redirect:/leaveType/list?status=error";
+		}
 	}
 
 	@GetMapping("/delete")
