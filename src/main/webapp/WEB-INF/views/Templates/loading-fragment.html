@@ -12,27 +12,24 @@
         </div>
 
         <style>
-            /* The Full Screen Overlay */
             .loader-overlay {
                 position: fixed;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background-color: rgba(255, 255, 255, 0.9); /* White background */
+                background-color: rgba(255, 255, 255, 0.9); 
                 z-index: 10000;
                 display: flex;
                 justify-content: center;
                 align-items: center;
             }
 
-            /* The Bouncing Dots Container */
             .bouncing-loader {
                 display: flex;
                 justify-content: center;
             }
 
-            /* The Individual Dots */
             .bouncing-loader > div {
                 width: 16px;
                 height: 16px;
@@ -43,7 +40,6 @@
                 animation: bouncing-loader 0.6s infinite alternate;
             }
 
-            /* The Animation Delays (So they jump one by one) */
             .bouncing-loader > div:nth-child(2) {
                 animation-delay: 0.2s;
             }
@@ -51,7 +47,6 @@
                 animation-delay: 0.4s;
             }
 
-            /* The Animation Keyframes */
             @keyframes bouncing-loader {
                 to {
                     opacity: 0.1;
@@ -64,12 +59,10 @@
             document.addEventListener("DOMContentLoaded", function() {
                 var loader = document.getElementById('global-loader');
 
-                // Function to show loader
                 function showLoader() {
                     loader.style.display = 'flex';
                 }
 
-                // A. Trigger on Form Submit
                 document.querySelectorAll('form').forEach(form => {
                     form.addEventListener('submit', function(event) {
                         if (form.checkValidity()) {
@@ -78,7 +71,6 @@
                     });
                 });
 
-                // B. Trigger on Link Click (Navigation)
                 document.querySelectorAll('a').forEach(link => {
                     link.addEventListener('click', function(event) {
                         var href = link.getAttribute('href');
@@ -88,7 +80,6 @@
                     });
                 });
 
-                // C. Hide on Back Button
                 window.addEventListener('pageshow', function(event) {
                     if (event.persisted) {
                         loader.style.display = 'none';
