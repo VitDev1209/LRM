@@ -25,12 +25,13 @@ public class LeaveTypeController extends BaseController {
 	@Autowired
 	private LeaveTypeService leaveTypeService;
 
-	@GetMapping("/list")
-	public String listLeaveType(Model model) {
-		List<LeaveType> leaveTypes = leaveTypeService.getLeaveType();
-		model.addAttribute("leaveType", leaveTypes);
-		return "LeaveType/listLeaveType";
-	}
+  @GetMapping("/list")
+  public String listLeaveType(Model model) {
+    List<LeaveType> leaveTypes = leaveTypeService.getLeaveType();
+    model.addAttribute("leaveType", leaveTypes);
+    return "LeaveType/listLeaveType";
+  }
+  
 
 	@GetMapping("/add")
 	public String addForm(Model model) {
