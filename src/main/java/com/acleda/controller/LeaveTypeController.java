@@ -29,6 +29,7 @@ public class LeaveTypeController {
     model.addAttribute("leaveType", leaveTypes);
     return "LeaveType/listLeaveType";
   }
+  
 
   @GetMapping("/add")
   public String addForm(Model model) {

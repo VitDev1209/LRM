@@ -47,6 +47,15 @@ public class DepartmentController {
         return new ApiResponse<>("success", 200, list);
     }
 	
+    
+    @GetMapping("/list_Department")
+    public String listDepartment(Model model) {
+    	List<Department> departments = departmentService.listDepartment();
+    	model.addAttribute("departments",departments);
+    	return "Department/index";
+    }
+    
+    
 	@GetMapping("/get_Department/{id}")
 	public String getDepartment(
 	        @PathVariable Integer id,
