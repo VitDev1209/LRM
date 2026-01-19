@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+	<div th:fragment="alertScript">
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
+    <script th:inline="javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            var springType = /*[[${alertType}]]*/ null;
+            var springMsg = /*[[${alertMessage}]]*/ null;
+
+            if (springMsg) {
+                showAlert(springType, springMsg);
+                return;            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const status = urlParams.get('status');
+
+            if (status === 'success') {
+                showAlert('success', 'Saved Successfully!');
+                cleanUrl(); 
+            } 
+            else if (status === 'error') {
+                showAlert('error', 'System Error Occurred.');
+                cleanUrl();
+            }
+
+
+            function showAlert(type, message) {
+                alertify.set('notifier','position', 'top-right');
+                switch(type) {
+                    case 'success': alertify.success(message); break;
+                    case 'error': alertify.error(message); break;
+                    case 'warning': alertify.warning(message); break;
+                    default: alertify.message(message);
+                }
+            }
+
+            function cleanUrl() {
+                const newUrl = window.location.pathname;
+                window.history.replaceState({}, document.title, newUrl);
+            }
+        });
+    </script>
+</div>
+</body>
+</html>
