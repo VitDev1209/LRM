@@ -1,21 +1,41 @@
 <!DOCTYPE html>
-<html th:fragment="layout(title, content , activePage)" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:fragment="layout(title, content, activePage)">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title th:replace="${title}">Acleda System</title>
-		    <!-- jQuery and DataTables -->
+
+    <!-- ================== CORE LIBRARIES ================== -->
+
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css" />
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css" />
+
+    <!-- ================== DATATABLES ================== -->
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" th:href="@{/css/datatable-soft.css}">
+
+    <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+    <script th:src="@{/js/datatable-global.js}"></script>
+
+    <!-- ================== ALERTIFY ================== -->
+
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+
+    <!-- ================== CUSTOM STYLES ================== -->
 
     <style>
         :root {
-            --sidebar-width: 250px;x1
+            --sidebar-width: 250px;
             --acleda-blue: #0d2840;
             --top-navbar-height: 60px;
         }
@@ -26,7 +46,7 @@
             overflow-x: hidden;
         }
 
-        /* --- SIDEBAR --- */
+        /* -------- SIDEBAR -------- */
         .sidebar {
             height: 100vh;
             width: var(--sidebar-width);
@@ -37,7 +57,7 @@
             color: white;
             padding-top: 20px;
             transition: all 0.3s ease;
-            z-index: 1050; /* Above navbar */
+            z-index: 1050;
         }
 
         .sidebar h3 {
@@ -53,8 +73,8 @@
             font-size: 1rem;
             color: #bdc3c7;
             display: block;
-            transition: 0.2s;
             border-left: 4px solid transparent;
+            transition: 0.2s;
         }
 
         .sidebar a:hover {
@@ -64,25 +84,29 @@
 
         .sidebar a.active {
             background-color: #0056b3;
-            color: white;
+            color: #fff;
             border-left: 4px solid #00d2ff;
         }
 
-        .sidebar i { width: 25px; text-align: center; margin-right: 10px; }
+        .sidebar i {
+            width: 25px;
+            margin-right: 10px;
+            text-align: center;
+        }
 
-        /* --- MAIN CONTENT --- */
+        /* -------- MAIN CONTENT -------- */
         .main-content {
-            margin-left: var(--sidebar-width); /* Default Desktop Margin */
+            margin-left: var(--sidebar-width);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             transition: all 0.3s ease;
         }
 
-        /* --- TOP NAVBAR --- */
+        /* -------- TOP NAVBAR -------- */
         .top-navbar {
             height: var(--top-navbar-height);
-            background-color: white;
+            background-color: #fff;
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             padding: 0 20px;
             display: flex;
@@ -97,138 +121,137 @@
             background: none;
             border: none;
             font-size: 1.5rem;
-            color: #333;
-            display: none; /* Hidden on Desktop */
+            display: none;
             cursor: pointer;
         }
 
         .page-content-wrapper {
             padding: 20px;
             flex: 1;
-            
         }
-              .content-box {
-    background-color: #ffffff; 
-    border-radius: 12px;       
-    border: 1px solid #d0d0d0; 
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
-    padding: 25px;             
-    margin-bottom: 20px;
-    position: relative;
-    transition: all 0.2s ease-in-out;
-}
-.content-box:hover {
-    box-shadow: 0 6px 25px rgba(0,0,0,0.12);
-}
 
+        .content-box {
+            background-color: #fff;
+            border-radius: 12px;
+            border: 1px solid #d0d0d0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            padding: 25px;
+            margin-bottom: 20px;
+            transition: 0.2s;
+        }
 
+        .content-box:hover {
+            box-shadow: 0 6px 25px rgba(0,0,0,0.12);
+        }
 
-        /* --- RESPONSIVE MOBILE STYLES --- */
+        /* -------- MOBILE -------- */
         @media (max-width: 768px) {
-            
-            /* Hide Sidebar by default on mobile */
             .sidebar {
-                left: -250px; 
+                left: -250px;
             }
 
-            /* Remove margin from content on mobile */
+            .sidebar.show {
+                left: 0;
+            }
+
             .main-content {
                 margin-left: 0;
             }
 
-            /* Show Hamburger button */
             .btn-toggle {
-                display: block; 
-                margin-right: 15px;
+                display: block;
             }
 
-            /* State: When Sidebar is Open on Mobile */
-            .sidebar.show {
-                left: 0;
-                box-shadow: 5px 0 15px rgba(0,0,0,0.3);
-            }
-
-            /* Overlay effect when menu is open */
             .overlay {
                 display: none;
                 position: fixed;
-                width: 100vw;
-                height: 100vh;
-                background: rgba(0, 0, 0, 0.5);
-                z-index: 1045; /* Below sidebar, above content */
-                top: 0; 
-                left: 0;
+                inset: 0;
+                background: rgba(0,0,0,0.5);
+                z-index: 1045;
             }
+
             .overlay.active {
                 display: block;
             }
-      
         }
     </style>
 </head>
+
 <body>
 
-    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-    <div class="sidebar" id="sidebar">
-        <h3><i class="fas fa-university"></i> ACLEDA</h3>
-        <a th:href="@{/}" th:classappend="${activePage == '/'} ? 'active' : ''"><i class="fas fa-home"></i> Home</a>
-        <a th:href="@{/leaveType/list}" th:classappend="${activePage == 'leaveType'} ? 'active' : ''"><i class="fas fa-suitcase"></i>Leave Types</a>
-       
-        <a th:href="@{/department/home}" th:classappend="${activePage == 'Department'} ? 'active' : ''"><i class="fas fa-building"></i>Department</a>
-       
-        <a href="#"><i class="fas fa-chart-line"></i> Reports</a>
-        <a href="#"><i class="fas fa-cog"></i> Settings</a>
+<!-- ================== SIDEBAR ================== -->
+<div class="sidebar" id="sidebar">
+    <h3><i class="fas fa-university"></i> ACLEDA</h3>
+
+    <a th:href="@{/}" th:classappend="${activePage == '/'} ? 'active'">
+        <i class="fas fa-home"></i> Home
+    </a>
+
+    <a th:href="@{/leaveType/list}" th:classappend="${activePage == 'leaveType'} ? 'active'">
+        <i class="fas fa-suitcase"></i> Leave Types
+    </a>
+
+    <a th:href="@{/department/home}" th:classappend="${activePage == 'Department'} ? 'active'">
+        <i class="fas fa-building"></i> Department
+    </a>
+
+    <a href="#"><i class="fas fa-chart-line"></i> Reports</a>
+    <a href="#"><i class="fas fa-cog"></i> Settings</a>
+</div>
+
+<!-- ================== MAIN CONTENT ================== -->
+<div class="main-content">
+
+    <!-- TOP NAVBAR -->
+    <div class="top-navbar">
+        <div class="d-flex align-items-center">
+            <button class="btn-toggle" onclick="toggleSidebar()">
+                <i class="fas fa-bars"></i>
+            </button>
+            <h5 class="m-0 text-secondary">System Management</h5>
+        </div>
+
+        <div class="dropdown">
+            <a class="d-flex align-items-center text-decoration-none dropdown-toggle"
+               data-bs-toggle="dropdown">
+                <div class="bg-primary text-white rounded-circle d-flex
+                            justify-content-center align-items-center me-2"
+                     style="width:35px;height:35px;">A</div>
+                <span class="d-none d-sm-inline">Admin User</span>
+            </a>
+
+            <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+            </ul>
+        </div>
     </div>
 
-    <div class="main-content">
-        
-        <div class="top-navbar">
-            <div class="d-flex align-items-center">
-                <button class="btn-toggle" onclick="toggleSidebar()">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <h5 class="m-0 text-secondary">System Management</h5>
-            </div>
-            
-            <div class="user-info dropdown">
-                <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle text-dark" id="userDropdown" data-bs-toggle="dropdown">
-                    <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center me-2" style="width: 35px; height: 35px;">
-                        A
-                    </div>
-                    <span class="d-none d-sm-inline">Admin User</span>
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                    <li><a class="dropdown-item" href="#">Profile</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="page-content-wrapper">
-        	
-            	<div th:replace="${content}"></div>
-        	
-        </div>
-
-        <div class="bg-white p-3 text-center text-muted border-top small">
-            &copy; 2026 ACLEDA Bank Plc. All rights reserved.
-        </div>
+    <!-- PAGE CONTENT -->
+    <div class="page-content-wrapper">
+        <div th:replace="${content}"></div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-	<th:block th:replace="~{Templates/alert-fragment :: alertScript}"></th:block>
-    <th:block th:replace="~{Templates/confirm-fragment :: confirmScript}"></th:block>
-    <th:block th:replace="~{Templates/loading-fragment :: loadingScript}"></th:block>
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            
-            sidebar.classList.toggle('show');
-            overlay.classList.toggle('active');
-        }
-    </script>
+
+    <!-- FOOTER -->
+    <footer class="bg-white p-3 text-center text-muted border-top small">
+        &copy; 2026 ACLEDA Bank Plc. All rights reserved.
+    </footer>
+</div>
+
+<!-- ================== FRAGMENTS ================== -->
+<th:block th:replace="~{Templates/alert-fragment :: alertScript}"/>
+<th:block th:replace="~{Templates/confirm-fragment :: confirmScript}"/>
+<th:block th:replace="~{Templates/loading-fragment :: loadingScript}"/>
+
+<script>
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('show');
+        document.getElementById('overlay').classList.toggle('active');
+    }
+</script>
 
 </body>
 </html>
