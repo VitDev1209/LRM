@@ -2,112 +2,154 @@
 <html xmlns:th="http://www.thymeleaf.org"
       th:replace="~{Templates/MainLayout :: layout(~{::title}, ~{::section}, 'Department')}">
 <head>
-    <title>Leave Type</title>
+    <title>Department List</title>
+    <!-- Include DataTables CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <style>
+    /* Page background */
+    body {
+        background: #f4f6f8;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont;
+    }
+
+    /* Table */
+    .soft-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 12px;
+    }
+
+    /* Header */
+    .soft-table thead th {
+        background: #f9fafb;
+        color: #374151;
+        font-weight: 600;
+        padding: 14px 16px;
+        border: none;
+        text-align: left;
+        font-size: 14px;
+    }
+
+    /* Rows */
+    .soft-table tbody tr {
+        background: #ffffff;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .soft-table tbody tr:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+    }
+
+    /* Cells */
+    .soft-table tbody td {
+        padding: 14px 16px;
+        border: none;
+        font-size: 14px;
+        color: #4b5563;
+    }
+
+    /* Rounded edges for first/last cell */
+    .soft-table tbody tr td:first-child {
+        border-top-left-radius: 12px;
+        border-bottom-left-radius: 12px;
+    }
+    .soft-table tbody tr td:last-child {
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+    }
+
+    /* Search input */
+    .dataTables_filter input {
+        border: 1px solid #e5e7eb;
+        border-radius: 9999px;
+        padding: 8px 16px;
+        outline: none;
+        font-size: 14px;
+        transition: all 0.2s;
+    }
+    .dataTables_filter input:focus {
+        border-color: #6366f1;
+        box-shadow: 0 0 0 2px rgba(99,102,241,0.2);
+    }
+
+    /* Pagination buttons */
+    .dataTables_paginate .paginate_button {
+        border-radius: 9999px;
+        background: #f3f4f6 !important;
+        color: #374151 !important;
+        border: none !important;
+        padding: 6px 12px !important;
+        margin: 0 4px !important;
+        font-size: 13px;
+    }
+    .dataTables_paginate .paginate_button.current {
+        background: #6366f1 !important;
+        color: #fff !important;
+    }
+
+    </style>
 </head>
-<style>
-
-.action-menu {
-    position: relative;
-    display: inline-block;
-}
-
-.btn-action {
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.action-dropdown {
-    display: none;
-    position: absolute;
-    background: #fff;
-    border: 1px solid #ddd;
-    min-width: 100px;
-    z-index: 1000;
-}
-
-.action-dropdown a {
-    display: block;
-    padding: 6px 10px;
-    text-decoration: none;
-    color: #333;
-}
-
-.action-dropdown a:hover {
-    background: #f0f0f0;
-}
-
-.action-menu:hover .action-dropdown {
-    display: block;
-}
-
-
-</style>
 <body>
 
 <section>
-    <h1>Department List</h1>
+<div class="content-box">
+    <h3>Department List</h3>
 
-    <div class="content-box">
-        <table id="departmentTable" class="display" style="width:100%">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Abbreviation</th>
-                    <th>Created At</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
-    </div>
-
-
+    <table id="departmentTable" class="soft-table" style="width:100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Abbreviation</th>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
 
 <script>
-$(document).ready(function() {
+$(document).ready(function () {
+
+    // Initialize DataTable
     $('#departmentTable').DataTable({
+        processing: true,
+        serverSide: false, 
         ajax: {
-            url: 'http://192.168.56.1:7001/LRM/department/list',
+            url: '/LRM/department/list', 
             type: 'GET',
-            dataSrc: 'data' 
+            dataType: 'json',
+            dataSrc: function(json) {
+                return json.data || [];
+            }
         },
-        columns: [	
+        columns: [
             { data: 'id' },
             { data: 'name' },
             { data: 'abbreviation' },
-            { data: 'created_at' },
-            { 
-            	data: 'id',
-            	searchable : false,
-            	orderable : false,
-            	render: function (data, type, row) {
-            	    return `
-            	        <div class="action-menu">
-            	            <button class="btn-action">Action ▾</button>
-            	            <div class="action-dropdown">
-            	                <a href="/LRM/department/edit/${data}" class="edit">Edit</a>
-            	                <a href="javascript:void(0)"
-            	                   class="delete"
-            	                   onclick="deleteDepartment(${data})">Delete</a>
-            	            </div>
-            	        </div>
-            	    `;
-            	}
-
-            
+            {
+                data: 'created_at',
+                render: function(data) {
+                    if (!data) return '';
+                    return new Date(data).toLocaleString();
+                }
             }
         ],
-        responsive: true,
-        processing: true
+        pageLength: 5,
+        lengthChange: false,
+        searching: true,
+        info: false
     });
+
 });
-
 </script>
-	
-</section>
 
+</section>
 
 </body>
 </html>

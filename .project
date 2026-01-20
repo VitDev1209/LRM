@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>LeaveRequestManagement-LRM</name>
+	<name>LeaveRequestManagement</name>
 	<comment>Project LeaveRequestManagement created by Buildship.</comment>
 	<projects>
 	</projects>
@@ -35,7 +35,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1768813689971</id>
+			<id>0</id>
 			<name></name>
 			<type>30</type>
 			<matcher>

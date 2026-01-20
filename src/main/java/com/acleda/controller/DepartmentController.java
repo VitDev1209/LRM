@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.acleda.model.Department;
 import com.acleda.service.DepartmentService;
@@ -42,6 +43,7 @@ public class DepartmentController {
     @CrossOrigin(origins = "*") 
     @GetMapping("/list")
     @ResponseBody
+    
     public ApiResponse<List<Department>> listDepartments() {
         List<Department> list = departmentService.listDepartment();
         return new ApiResponse<>("success", 200, list);
