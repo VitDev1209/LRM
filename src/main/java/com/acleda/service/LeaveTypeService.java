@@ -8,13 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.acleda.dao.LeaveTypeDao;
+import com.acleda.dao.LogDao;
 import com.acleda.model.LeaveType;
+import com.acleda.model.Logs;
 
 @Service
 public class LeaveTypeService {
 
   @Autowired
   private LeaveTypeDao dao;
+  
+  @Autowired
+  private LogDao logDao;
 
   private final Logger logger = LoggerFactory.getLogger(LeaveTypeService.class);
 
@@ -25,6 +30,8 @@ public class LeaveTypeService {
     }
     try {
       dao.insert(leaveType);
+      Logs logs = new Logs(1, "Insert leave type", "....", "insert leave type [3002]");
+      logDao.insertLog(logs);
     } catch (Exception e) {
       logger.error("leaveType[3001]" + e.getMessage(), e);
     }
@@ -64,6 +71,8 @@ public class LeaveTypeService {
     }
     try {
       dao.update(leaveType);
+      Logs logs = new Logs(1, "Update leave type", "....", "update leave type [3004]");
+      logDao.insertLog(logs);
     } catch (Exception e) {
       logger.error("leaveType[3004]" + e.getMessage() , e);
     }
@@ -75,6 +84,8 @@ public class LeaveTypeService {
     }
     try {
       dao.delete(id);
+      Logs logs = new Logs(1, "Delete leave type", "....", "delete leave type [3005]");
+      logDao.insertLog(logs);
     } catch (Exception e) {
       logger.error("deleteLeaveType[3005]" + e.getMessage() , e);
     }

@@ -23,7 +23,7 @@ public class DepartmentDao {
 
 	private final Logger logger = LoggerFactory.getLogger(DepartmentDao.class);
 
-	@Autowired
+	@Autowired	
 	private DataSource dataSource;
 
 	public List<Department> listDepartments() {

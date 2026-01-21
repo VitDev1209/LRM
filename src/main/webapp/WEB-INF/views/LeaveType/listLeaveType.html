@@ -58,11 +58,12 @@
 									th:href="@{/leaveType/edit(id=${item.leaveTypeId})}"
 									class="btn btn-sm btn-outline-primary me-1" title="Edit"> <i
 										class="fas fa-edit"></i>
-								</a> <a th:href="@{/leaveType/delete(id=${item.leaveTypeId})}"
-									class="btn btn-sm btn-outline-danger" title="Delete"
-									onclick="return confirm('Are you sure you want to delete this leave type?');">
-										<i class="fas fa-trash-alt"></i>
-								</a></td>
+								</a> <a th:href="@{/leaveType/delete(id=${item.leaveTypeId})}" 
+   class="btn btn-sm btn-outline-danger confirm-action" 
+   data-confirm-msg="Are you sure you want to delete this Leave Type?" 
+   title="Delete">
+    <i class="fas fa-trash-alt"></i> Delete
+</a></td>
 							</tr>
 
 							<tr th:if="${#lists.isEmpty(leaveType)}">
