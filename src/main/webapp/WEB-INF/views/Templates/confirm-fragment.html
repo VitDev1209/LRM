@@ -1,0 +1,39 @@
+<div th:fragment="confirmScript">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            document.body.addEventListener('click', function(e) {
+                var target = e.target.closest('.confirm-action');
+                
+                if (target) {
+                    e.preventDefault(); 
+                    
+                    var href = target.getAttribute('href'); 
+                    var msg = target.getAttribute('data-confirm-msg') || 'Are you sure?';
+                    
+                    alertify.confirm('Confirmation', msg, 
+                        function() { 
+                            // --- USER CLICKED "YES" ---
+                            
+                            // 1. (DELETED) We removed the loader code here.
+                            // The spinner will NOT show up.
+                            
+                            // 2. Just Redirect
+                            if (href) {
+                                window.location.href = href; 
+                            } else if (target.type === 'submit' || target.tagName === 'BUTTON') {
+                                target.closest('form').submit();
+                            }
+                        },
+                        function() { 
+                            alertify.error('Cancelled');
+                        }
+                    ).set('labels', {ok:'Yes, Proceed', cancel:'Cancel'}); 
+                }
+            });
+
+        });
+        /*]]>*/
+    </script>
+</div>
