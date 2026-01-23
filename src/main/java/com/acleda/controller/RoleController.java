@@ -15,31 +15,13 @@ import java.util.List;
 public class RoleController {
 	@Autowired
 	private RoleService roleService;
-//	
-//	@GetMapping("/list")
-//	public String role(Model model) {
-//		List<Role> roleList = roleService.listRole();
-//		model.addAttribute("roles", roleList);
-//		System.out.print("role ");
-//		return "Role/viewRole";
-//	}
+	
 	@GetMapping("/list")
 	public String role(Model model) {
-
-	    List<Role> roleList = roleService.listRole();
-
-	    System.out.println("===== ROLE LIST =====");
-	    for (Role r : roleList) {
-	        System.out.println(
-	            "ID=" + r.getRoleId() +
-	            ", Name=" + r.getRoleName() +
-	            ", Desc=" + r.getDescription()
-	        );
-	    }
-
-	    model.addAttribute("roles", roleList);
-	    return "Role/viewRole";
+		List<Role> roleList = roleService.listRole();
+		model.addAttribute("roles", roleList);
+		System.out.print("role ");
+		return "Role/viewRole";
 	}
-
 	
 }
