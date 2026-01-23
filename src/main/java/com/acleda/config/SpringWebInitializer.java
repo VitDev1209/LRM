@@ -2,6 +2,8 @@ package com.acleda.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
+import com.acleda.security.SecurityConfig;
+
 public class SpringWebInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 	
 	public SpringWebInitializer() {
@@ -10,7 +12,7 @@ public class SpringWebInitializer extends AbstractAnnotationConfigDispatcherServ
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[] { WebMvcConfigure.class};
+		return new Class[] { WebMvcConfigure.class , SecurityConfig.class};
 	}
 
 	@Override
