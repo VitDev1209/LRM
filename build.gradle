@@ -39,9 +39,9 @@ dependencies {
     implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation 'org.hibernate.validator:hibernate-validator:6.2.5.Final'
     
-    implementation group: 'org.springframework.security', name: 'spring-security-web', version: springSecurityVersion
-    implementation group: 'org.springframework.security', name: 'spring-security-config', version: springSecurityVersion
-    implementation group: 'org.springframework.security', name: 'spring-security-core', version: springSecurityVersion
+    // implementation group: 'org.springframework.security', name: 'spring-security-web', version: springSecurityVersion
+    // implementation group: 'org.springframework.security', name: 'spring-security-config', version: springSecurityVersion
+    // implementation group: 'org.springframework.security', name: 'spring-security-core', version: springSecurityVersion
     
 
     implementation "org.thymeleaf:thymeleaf:$thymeleafVersion"

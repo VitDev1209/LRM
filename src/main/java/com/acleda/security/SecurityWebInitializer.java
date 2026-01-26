@@ -1,7 +1,7 @@
-package com.acleda.security;
+// package com.acleda.security;
 
-import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
+// import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
-public class SecurityWebInitializer extends AbstractSecurityWebApplicationInitializer {
+// public class SecurityWebInitializer extends AbstractSecurityWebApplicationInitializer {
 
-}
+// }
