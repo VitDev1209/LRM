@@ -38,6 +38,17 @@ dependencies {
     implementation 'javax.persistence:javax.persistence-api:2.2'
     implementation 'javax.validation:validation-api:2.0.1.Final'
     implementation 'org.hibernate.validator:hibernate-validator:6.2.5.Final'
+    implementation 'io.projectreactor:reactor-core:3.5.11'
+    testImplementation 'io.projectreactor:reactor-test:3.5.11'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    
+    implementation 'net.sourceforge.tess4j:tess4j:5.13.0' 
+
+    // 2. PDFBox (To convert PDF to Image for OCR)
+    implementation 'org.apache.pdfbox:pdfbox:2.0.30'
+    
+    // (Optional) Simple Logger to suppress strict logging warnings from Tess4J
+    implementation 'ch.qos.logback:logback-classic:1.4.14'
     
     // implementation group: 'org.springframework.security', name: 'spring-security-web', version: springSecurityVersion
     // implementation group: 'org.springframework.security', name: 'spring-security-config', version: springSecurityVersion
